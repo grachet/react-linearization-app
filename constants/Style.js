@@ -1,95 +1,94 @@
 import {Dimensions, Platform} from 'react-native';
+import c from './Colors'
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 export default {
 
+    row: {
+        flexDirection: 'row'
+    },
+    center: {
+        alignItems: 'center',
+    },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: c.mainBackgroundApp
     },
-    developmentModeText: {
-        marginBottom: 20,
-        color: 'rgba(0,0,0,0.4)',
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: 'center',
+    m_md: {
+        marginHorizontal: 30,
+        marginTop: 15,
+        marginBottom: 25,
     },
-    contentContainer: {
-        paddingTop: 30,
+    mt_md: {
+        marginTop: 15,
+    },
+    mt_lg: {
+        marginTop: 30,
+    },
+    mb_md: {
+        marginBottom: 15,
+    },
+    mb_lg: {
+        marginBottom: 30,
+    },
+    actionButton: {
+        position: 'absolute',
+        bottom: 25,
+        right:25,
+        zIndex:1000,
     },
     welcomeContainer: {
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
     },
-    welcomeImage: {
-        width: 266,
-        height: 120,
+
+    image: {
+        width: width,
+        height: 0.45 * width,
         resizeMode: 'contain',
         marginTop: 3,
         marginHorizontal: 10,
     },
-    getStartedContainer: {
-        alignItems: 'center',
-        marginHorizontal: 30,
+    modalContainer: {
+        justifyContent: 'flex-start',
+       marginTop: 100,
+       // marginHorizontal: 30,
     },
-    homeScreenFilename: {
-        marginVertical: 7,
+
+    modalView: {
+        backgroundColor: c.white,
+        borderRadius: 20,
+        padding: 20,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
     },
-    codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
-    },
-    codeHighlightContainer: {
-        backgroundColor: 'rgba(0,0,0,0.05)',
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
+
+    text: {
         fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
+        color: c.greyText,
+        lineHeight: 24,
+        textAlign: 'justify',
+        marginTop: 15,
+    },
+    boldText: {
+        fontSize: 17,
+        color: c.greyText,
+        lineHeight: 24,
+        textAlign: 'justify',
+        marginTop: 15,
+        fontWeight: "bold",
+        backgroundColor: c.blueSky
+    },
+    sm_text: {
+        fontSize: 15,
+        color: c.greyText,
         lineHeight: 24,
         textAlign: 'justify',
     },
-    tabBarInfoContainer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        ...Platform.select({
-            ios: {
-                shadowColor: 'black',
-                shadowOffset: { height: -3 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3,
-            },
-            android: {
-                elevation: 20,
-            },
-        }),
-        alignItems: 'center',
-        backgroundColor: '#fbfbfb',
-        paddingVertical: 20,
-    },
-    tabBarInfoText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        textAlign: 'center',
-    },
-    navigationFilename: {
-        marginTop: 5,
-    },
-    helpContainer: {
-        marginTop: 15,
-        alignItems: 'center',
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        fontSize: 14,
-        color: '#2e78b7',
-    },
+    inputWhite: {
+        backgroundColor: c.whiteGrey,
+    }
 
 };

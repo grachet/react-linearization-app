@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from '../constants/Style'
+import s from '../constants/Style'
+import c from '../constants/Colors'
 import {
     Image,
     Platform,
@@ -14,18 +15,22 @@ import text from "../constants/Text";
 export default class ResultScreen extends React.Component {
     static navigationOptions = {
         title: 'Résultat',
+        headerStyle: {
+            backgroundColor: c.blueSky,
+        },
+        headerTintColor: c.white,
     };
 
 
 
     render() {
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={s.container}>
 
-                <View style={[{marginBottom: 40, marginTop: 30}, styles.getStartedContainer]}>
+                <View style={[s.container, s.center, s.m_md]}>
 
 
-                    <Text style={styles.getStartedText}>{text.resultText}</Text>
+                    <Text style={s.text}>{text.resultText}</Text>
 
 
 

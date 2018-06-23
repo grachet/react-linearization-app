@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '../constants/Style'
-import color from '../constants/Colors'
+import s from '../constants/Style'
+import c from '../constants/Colors'
 import text from '../constants/Text'
 import {
     Image,
@@ -20,6 +20,10 @@ import {Button, Text} from 'native-base';
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
         title: 'Information',
+        headerStyle: {
+            backgroundColor: c.blueSky,
+        },
+        headerTintColor: c.white,
     };
 
     constructor(props) {
@@ -32,8 +36,8 @@ export default class HomeScreen extends React.Component {
         const {navigate} = this.props.navigation;
 
         return (
-            <ScrollView style={styles.container}>
-                <View style={styles.welcomeContainer}>
+            <ScrollView style={s.container}>
+                <View style={[s.container, s.center,]}>
                     <TouchableHighlight
                         onPress={() => Linking.openURL('http://www.hitec.fr/')}
                     >
@@ -41,26 +45,24 @@ export default class HomeScreen extends React.Component {
                             source={
                                 require('../assets/images/logo_hitec.jpg')
                             }
-                            style={styles.welcomeImage}
+                            style={s.Image}
                         />
                     </TouchableHighlight>
                 </View>
 
-                <View style={[{marginBottom: 40, flex:1}, styles.getStartedContainer]}>
-                    <Text style={styles.getStartedText}>{text.homeL1}</Text>
-                    <Text style={[{marginTop: 15}, styles.getStartedText]}>{text.homeL2}</Text>
-                    <Text style={[{marginTop: 15}, styles.getStartedText]}>{text.homeL3}</Text>
-                    <Text style={[{marginTop: 15, marginBottom: 30}, styles.getStartedText]}>{text.homeL4}</Text>
+                <View style={[s.container, s.center, s.m_md]}>
+                    <Text style={s.text}>{text.homeL1}</Text>
+                    <Text style={[s.text]}>{text.homeL2}</Text>
+                    <Text style={[ s.text]}>{text.homeL3}</Text>
+                    <Text style={[s.text, s.mb_lg]}>{text.homeL4}</Text>
 
-                    <View style={{ alignItems: 'center'}}>
-                    <Button primary
+                    <View style={[s.center,s.mb_lg]}>
+                    <Button info
                             onPress={() => navigate('Params')
                             }><Text> Commencer </Text>
                     </Button>
                     </View>
                 </View>
-
-
 
             </ScrollView>
         );
