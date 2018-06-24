@@ -10,7 +10,7 @@ import {
     View,
     Switch, Dimensions
 } from 'react-native';
-import {Container, Header,  Content, H1, H2, H3, Button, Text, Item, Input} from 'native-base';
+import {Container, Header, Content, H1, H2, H3, Button, Text, Item, Input} from 'native-base';
 import text from "../constants/Text";
 import t from 'tcomb-form-native';
 
@@ -45,22 +45,6 @@ const options = {
     },
 };
 
-submitParam = (type) => {
-
-    const value = this._form.getValue();
-    if (type === 'cylindrique') {
-        if (value) {
-            console.log(value);
-        }
-        navigate('Result')
-    }
-    if (type === 'divers') {
-        if (value) {
-            console.log(value);
-        }
-        navigate('Abaque')
-    }
-}
 
 export default class ParamsScreen extends React.Component {
     static navigationOptions = {
@@ -75,6 +59,24 @@ export default class ParamsScreen extends React.Component {
         super(props);
     }
 
+    submitParam = (type) => {
+        const {navigate} = this.props.navigation;
+        const value = this._form.getValue();
+        if (type === 'cylindrique') {
+            if (value) {
+                console.log(value);
+                navigate('Result')
+            }
+
+        }
+        if (type === 'divers') {
+            if (value) {
+                console.log(value);
+                navigate('Abaque')
+            }
+
+        }
+    }
 
     render() {
         const {navigate} = this.props.navigation;
@@ -86,25 +88,24 @@ export default class ParamsScreen extends React.Component {
                 <View style={[s.container, s.center, s.m_md]}>
 
 
-
                     <Form type={Params} ref={c => this._form = c} options={options}/>
 
 
                     <View style={{marginTop: 30, alignItems: 'center'}}>
                         <Button info
-                                onPress={() => submitParam('divers')
-                        }><Text> Cuve diverse </Text>
+                                onPress={() => this.submitParam('divers')
+                                }><Text> Cuve diverse </Text>
                         </Button>
                     </View>
-                    <View style={[s.mb_lg, s.center, s.mt_md ]}>
+                    <View style={[s.mb_lg, s.center, s.mt_md]}>
                         <Button info
-                                onPress={() => submitParam('cylindrique')
-                        }><Text> Cuve cylindrique </Text>
+                                onPress={() => this.submitParam('cylindrique')
+                                }><Text> Cuve cylindrique </Text>
                         </Button>
                     </View>
 
                     <Text
-                        style={[s.mb_lg,s.text]}>{text.paramCylinderText}</Text>
+                        style={[s.mb_lg, s.text]}>{text.paramCylinderText}</Text>
                 </View>
 
 

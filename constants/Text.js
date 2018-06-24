@@ -18,11 +18,11 @@ export default {
     abaqueModalText:'Ajouter un point',
     abaqueModalInput1:'Volume (m3 ou L)',
     abaqueModalInput2:'Hauteur (m)',
-    abaqueModalError1:'Le volume ne doit pas être null',
+    abaqueModalError1:'Le volume ne doit pas être nul',
     abaqueModalError2:'La hauteur ne doit pas être nulle',
 
     paramInputError1:'L\'échelle ne doit pas être nulle',
     paramInputError2:'La hauteur ne doit pas être nulle',
-    paramInputError3:'Le volume ne doit pas être null',
+    paramInputError3:'Le volume ne doit pas être nul',
 
 };

@@ -18,6 +18,12 @@ import t from 'tcomb-form-native';
 
 const width = Dimensions.get('window').width;
 
+//Issue was fixed for me by removing a space I had between my tags.
+//I've had the same problem for a while until I realized that in order to make a line break between 2 paragraphs, I had this {`\n`} between 2 Text components. Removing it fixed this issue for me
+// I had a semi colon somewhere it shouldn't have been. return <View><Text>Hi!</Text>;</View>;
+//https://github.com/facebook/react-native/issues/18773
+
+
 var Form = t.form.Form;
 
 const Point = t.struct({
@@ -104,7 +110,7 @@ export default class AbaqueScreen extends React.Component {
                         <View style={{marginTop: 30, alignItems: 'center'}}>
                             <Button info
                                     onPress={() => navigate('Result')
-                                    }><Text> Calculer résultat</Text>
+                                    }><Text>Calculer résultat</Text>
                             </Button>
                         </View>
 
@@ -127,13 +133,13 @@ export default class AbaqueScreen extends React.Component {
                                         <View style={{marginRight: 5}}>
                                             <Button info
                                                     onPress={() => this.addPoint()
-                                                    }><Text> Ajouter </Text>
+                                                    }><Text>Ajouter</Text>
                                             </Button>
                                         </View>
                                         <View style={{marginLeft: 5}}>
                                             <Button danger
                                                     onPress={() => this.hideModal()
-                                                    }><Text> Annuler </Text>
+                                                    }><Text>Annuler</Text>
                                             </Button>
                                         </View>
                                     </View>
