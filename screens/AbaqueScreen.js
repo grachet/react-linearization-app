@@ -7,14 +7,17 @@ import {
     ScrollView,
     StyleSheet,
     TouchableOpacity,
+    TouchableHighlight,
     View,
-    Dimensions
+    Dimensions,
+    FlatList,
 } from 'react-native';
 import text from "../constants/Text";
 import {Button, Input, Item, Text} from 'native-base';
 import Modal from "react-native-modal";
 import {Icon} from 'expo';
 import t from 'tcomb-form-native';
+import ListItem from '../components/ListItem'
 
 const width = Dimensions.get('window').width;
 
@@ -31,8 +34,8 @@ const Point = t.struct({
     hauteur: t.Number,
 });
 
-t.form.Form.stylesheet.formGroup.normal.width = width-100;
-t.form.Form.stylesheet.formGroup.error.width = width-100;
+t.form.Form.stylesheet.formGroup.normal.width = width - 100;
+t.form.Form.stylesheet.formGroup.error.width = width - 100;
 t.form.Form.stylesheet.textboxView.normal.marginBottom = 15;
 t.form.Form.stylesheet.controlLabel.normal.marginTop = 10;
 t.form.Form.stylesheet.controlLabel.error.marginTop = 15;
@@ -65,7 +68,18 @@ export default class AbaqueScreen extends React.Component {
         super(props);
         this.state = {
             showModal: false,
-            points: [],
+            points: [{
+                "hauteur": 3,
+                "volume": 5,
+            },
+                {
+                    "hauteur": 3,
+                    "volume": 6,
+                },
+                {
+                    "hauteur": 3,
+                    "volume": 4,
+                },],
         };
 
     }
@@ -83,36 +97,66 @@ export default class AbaqueScreen extends React.Component {
 
         const value = this._form.getValue();
         if (value) {
-            console.log(value);
             this.hideModal();
+            this.setState(prevState => ({
+                points: [...prevState.points, value]
+            }));
+            this.setState(prevState => ({
+                points: [...prevState.points, value]
+            }));
+            this.setState(prevState => ({
+                points: [...prevState.points, value]
+            }))
         }
 
     }
 
-    deletePoint = () => {
+    deletePoint = (index) => {
 
+        this.setState(prevState => ({
+            points: prevState.points.splice(index, 1)
+        }));
+
+        console.log(this.state.points)
     }
 
     render() {
+        const points = this.state.points;
+        const addIconName = Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle';
         const {navigate} = this.props.navigation;
         return (
 
             <View style={[s.container]}>
 
-
+                {(points === {} || points === 0 || points === null) &&
+                <Text style={[s.m_md, s.text]}>{text.abaqueHelp1}</Text>}
+                <View style={[s.center, s.mt_lg, s.mb_lg]}>
+                <View>
+                    <Button info
+                            onPress={() => navigate('Result')}>
+                        <Text>Calculer résultat</Text>
+                    </Button>
+                </View>
+                </View>
                 <ScrollView style={s.container}>
 
-                    <View style={[s.container, s.center, s.m_md]}>
+                    <View style={[s.container, s.center]}>
 
 
-                        <Text style={s.text}>{text.abaqueHelp1}</Text>
 
-                        <View style={{marginTop: 30, alignItems: 'center'}}>
-                            <Button info
-                                    onPress={() => navigate('Result')
-                                    }><Text>Calculer résultat</Text>
-                            </Button>
-                        </View>
+
+                        <FlatList
+                            data={points}
+                            keyExtractor={(item, index) => index}
+                            renderItem={({item, index}) => (
+                                <ListItem
+                                    type={'abaque'}
+                                    onDelete={this.deletePoint}
+                                    values={item}
+                                    index={index}
+                                />
+                            )}
+                        />
 
 
                         <View>
@@ -153,20 +197,18 @@ export default class AbaqueScreen extends React.Component {
 
 
                 </ScrollView>
-
                 <View style={[s.actionButton]}>
                     <TouchableOpacity
                         onPress={() => this.showModal()
-                        }> <Icon.Ionicons
-                        name={Platform.OS === 'ios'
-                            ? 'ios-add-circle'
-                            : 'md-add-circle'}
-                        size={60}
-                        color={c.blueSky}
-
-                    />
+                        }>
+                        <Icon.Ionicons
+                            name={addIconName}
+                            size={60}
+                            color={c.blueSky}
+                        />
                     </TouchableOpacity>
                 </View>
+
             </View>
         );
     }

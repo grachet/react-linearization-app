@@ -64,14 +64,14 @@ export default class ParamsScreen extends React.Component {
         const value = this._form.getValue();
         if (type === 'cylindrique') {
             if (value) {
-                console.log(value);
+
                 navigate('Result')
             }
 
         }
         if (type === 'divers') {
             if (value) {
-                console.log(value);
+
                 navigate('Abaque')
             }
 

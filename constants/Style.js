@@ -11,6 +11,7 @@ export default {
     },
     center: {
         alignItems: 'center',
+
     },
     container: {
         flex: 1,
@@ -20,6 +21,9 @@ export default {
         marginHorizontal: 30,
         marginTop: 15,
         marginBottom: 25,
+    },
+    mb_pixel: {
+        marginBottom: 1,
     },
     mt_md: {
         marginTop: 15,
@@ -87,7 +91,7 @@ export default {
         lineHeight: 24,
         textAlign: 'justify',
     },
-    inputWhite: {
+    backgroundWhite: {
         backgroundColor: c.whiteGrey,
     }
 
