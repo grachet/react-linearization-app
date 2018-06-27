@@ -88,10 +88,10 @@ export default class ParamsScreen extends React.Component {
                 <View style={[s.container, s.center, s.m_md]}>
 
 
-                    <Form type={Params} ref={c => this._form = c} options={options}/>
+                        <Form type={Params} ref={c => this._form = c} options={options}/>
 
 
-                    <View style={{marginTop: 30, alignItems: 'center'}}>
+                    <View style={{marginTop: 15, alignItems: 'center'}}>
                         <Button info
                                 onPress={() => this.submitParam('divers')
                                 }><Text> Cuve diverse </Text>

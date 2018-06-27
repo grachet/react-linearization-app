@@ -12,6 +12,7 @@ import {
     View,
     Dimensions,
     FlatList,
+
 } from 'react-native';
 import text from "../constants/Text";
 import {Button, Input, Item, Text} from 'native-base';
@@ -27,19 +28,24 @@ export default class ListItem extends React.Component {
 
     constructor(props) {
         super(props);
+
     }
 
     render() {
 
         const {type, onDelete, index, values} = this.props;
+        const isHeader = type === 'header';
         console.log(onDelete)
         let col1, col2;
         if (type === 'abaque') {
-            col1 = values.hauteur + '  m ';
-            col2 = values.volume + '  L/m3 ' ;
+            col2 = values.hauteur + '  m ';
+            col1 = values.volume + '  L/m3 ';
         } else if (type === 'result') {
-            col1 = values.volume;
-            col2 = values.hauteur;
+            col1 = values.affichage;
+            col2 = values.courant + '  mA ';;
+        } else if (type === 'header') {
+            col1 = values.col1;
+            col2 = values.col2;
         }
 
         return (
@@ -47,14 +53,20 @@ export default class ListItem extends React.Component {
             <TouchableHighlight
                 onPress={() => onDelete(index)}
                 style={s.mb_pixel}
+                disabled={type !== 'abaque' || isHeader}
             >
                 <View style={[s.row, {height: 50, width: width}]}>
-                    <View style={[{flex: 0.13, backgroundColor: c.blueSky, justifyContent: 'center'}, s.center]}>
-                        <Text style={{color: c.white}}>{index}</Text>
+                    <View style={[{flex: 0.13, backgroundColor: c.lightGrey, justifyContent: 'center'}, s.center]}>
+                        <Text style={{color: c.white}}>{isHeader ? '' : index+1}</Text>
                     </View>
-                    <View style={[{flex: 0.87, justifyContent: 'space-around', alignItems: 'center'},s.row, s.backgroundWhite]}>
-                        <Text style={{color: c.greyText}}>{col1}</Text>
-                        <Text style={{color: c.greyText}}>{col2}</Text>
+                    <View style={[{
+                        flex: 0.87,
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        backgroundColor : isHeader ? c.lightGrey : c.white
+                    }, s.row ]}>
+                        <Text style={{color: isHeader ? c.white : c.greyText}}>{col1}</Text>
+                        <Text style={{color:  isHeader ? c.white : c.greyText}}>{col2}</Text>
                     </View>
 
 

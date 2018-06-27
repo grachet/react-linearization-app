@@ -15,6 +15,7 @@ export default {
     black: '#000',
     darkGrey: '#282828',
     slightGrey: '#b3b3b3',
+    lightGrey: '#989898',
     mainBackgroundApp: '#e8e8e8',
     greyText: 'rgba(96,100,109, 1)',
     whiteGrey: '#f6f6f6',

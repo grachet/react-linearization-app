@@ -18,7 +18,7 @@ export default {
         backgroundColor: c.mainBackgroundApp
     },
     m_md: {
-        marginHorizontal: 30,
+        marginHorizontal: 25,
         marginTop: 15,
         marginBottom: 25,
     },
@@ -58,7 +58,7 @@ export default {
     },
     modalContainer: {
         justifyContent: 'flex-start',
-       marginTop: 100,
+       marginTop: 40,
        // marginHorizontal: 30,
     },
 
@@ -73,14 +73,14 @@ export default {
         fontSize: 17,
         color: c.greyText,
         lineHeight: 24,
-        textAlign: 'justify',
+        textAlign: Platform.OS === 'ios' ? 'justify' : 'center',
         marginTop: 15,
     },
     boldText: {
         fontSize: 17,
         color: c.greyText,
         lineHeight: 24,
-        textAlign: 'justify',
+        textAlign: Platform.OS === 'ios' ? 'justify' : 'center',
         marginTop: 15,
         fontWeight: "bold",
         backgroundColor: c.blueSky
@@ -89,7 +89,7 @@ export default {
         fontSize: 15,
         color: c.greyText,
         lineHeight: 24,
-        textAlign: 'justify',
+        textAlign: Platform.OS === 'ios' ? 'justify' : 'center',
     },
     backgroundWhite: {
         backgroundColor: c.whiteGrey,
