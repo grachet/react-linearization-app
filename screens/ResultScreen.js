@@ -6,15 +6,16 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View,
     FlatList
 } from 'react-native';
 import text from "../constants/Text";
 import ListItem from '../components/ListItem'
+import {connect} from 'react-redux'
+import {Button, Input, Item, Text} from 'native-base';
 
-export default class ResultScreen extends React.Component {
+class ResultScreen extends React.Component {
     static navigationOptions = {
         title: 'Résultat',
         headerStyle: {
@@ -25,69 +26,73 @@ export default class ResultScreen extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.headerTable = {
             "col1": 'DSC (affichage)',
             "col2": 'ISC (courant mA)'
         };
-        this.state = {
-            showModal: false,
-            results: [{
-                "affichage": 3,
-                "courant": 5,
-            },
-                {
-                    "affichage": 3,
-                    "courant": 6,
-                },
-                {
-                    "affichage": 3,
-                    "courant": 4,
-                }, {
-                    "affichage": 3.5214,
-                    "courant": 5,
-                },
-                {
-                    "affichage": 3,
-                    "courant": 6,
-                },
-                {
-                    "affichage": 3,
-                    "courant": 4,
-                }, {
-                    "affichage": 3,
-                    "courant": 5,
-                },
-                {
-                    "affichage": 3,
-                    "courant": 6,
-                },
-                {
-                    "affichage": 3,
-                    "courant": 4,
-                },],
-        };
 
+
+    }
+
+    /*
+    componentDidUpdate() {
+        console.log("componentDidUpdate : ");
+        console.log(this.props.echelle, 'echelle');
+        console.log(this.props.hauteur, 'hauteur');
+        console.log(this.props.volume, 'volume');
+        console.log(this.props.points, 'points');
+    }*/
+
+    getData(value) {
+        return value
     }
 
 
     render() {
+        const {navigate} = this.props.navigation;
+        const noParams = (!this.props.volume);
+        const noData = !noParams && (this.props.points === {} || this.props.points.length === 0 || this.props.points === null);
+
+
         return (
 
 
             <View style={[s.container, s.center]}>
 
 
+                {noData &&
+                <Text style={[s.text, s.m_md, s.mt_lg]}>{text.noData}</Text>
+                }
+
+                {noParams &&
+                <Text style={[s.text, s.m_md, s.mt_lg]}>{text.noParams}</Text>
+                }
+
+                {(noParams || noData) &&
+                <View style={[s.center, s.mt_md]}>
+                    <Button info
+                            onPress={noParams ? () => navigate('Params') :  () => navigate('Abaque')
+                            }><Text> Ajouter </Text>
+                    </Button>
+                </View>
+               }
+
+                {!noData && !noParams &&
                 <Text style={[s.text, s.m_md]}>{text.resultText}</Text>
+                }
+
+                {!noData && !noParams &&
+                <ListItem
+                    type={'header'}
+                    values={this.headerTable}
+                    index={''}
+                />}
 
 
-                    <ListItem
-                        type={'header'}
-                        values={this.headerTable}
-                        index={''}
-                    />
                 <ScrollView style={s.container}>
                     <FlatList
-                        data={this.state.results}
+                        data={this.getData(this.props.points)}
                         keyExtractor={(item, index) => index}
                         renderItem={({item, index}) => (
                             <ListItem
@@ -105,3 +110,19 @@ export default class ResultScreen extends React.Component {
         );
     }
 };
+
+
+const mapStateToProps = (state) => {
+    return state
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {
+            dispatch(action)
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultScreen)

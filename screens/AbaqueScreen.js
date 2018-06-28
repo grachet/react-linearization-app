@@ -19,6 +19,7 @@ import Modal from "react-native-modal";
 import {Icon} from 'expo';
 import t from 'tcomb-form-native';
 import ListItem from '../components/ListItem'
+import {connect} from 'react-redux'
 
 const width = Dimensions.get('window').width;
 
@@ -55,7 +56,7 @@ const options = {
     },
 };
 
-export default class AbaqueScreen extends React.Component {
+class AbaqueScreen extends React.Component {
     static navigationOptions = {
         title: 'Abaque',
         headerStyle: {
@@ -79,6 +80,7 @@ export default class AbaqueScreen extends React.Component {
     }
 
 
+
     showModal = () => {
         this.setState({showModal: true});
     }
@@ -92,9 +94,8 @@ export default class AbaqueScreen extends React.Component {
         const value = this._form.getValue();
         if (value) {
             this.hideModal();
-            this.setState(prevState => ({
-                points: [...prevState.points, value]
-            }));
+            const action = {type: "ADD_POINT", value: value}
+            this.props.dispatch(action)
         }
 
     }
@@ -114,20 +115,13 @@ export default class AbaqueScreen extends React.Component {
     }
 
     deletePoint = (index) => {
-        
-        this.setState(function (prevState) {
-            return {
-                points: prevState.points.filter(function (val, i) {
-                    return i !== index;
-                })
-            };
-        });
-
+        const action = {type: "DELETE_POINT", index: index}
+        this.props.dispatch(action)
     }
 
     render() {
 
-        const points = this.state.points;
+        const points = this.props.points;
         const noPoints = (points === {} || points.length === 0 || points === null)
         const addIconName = Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle';
         const {navigate} = this.props.navigation;
@@ -137,6 +131,8 @@ export default class AbaqueScreen extends React.Component {
 
                 {noPoints &&
                 <Text style={[s.m_md, s.text]}>{text.abaqueHelp1}</Text>}
+
+                {!noPoints &&
                 <View style={[s.center, s.mt_lg, s.mb_lg]}>
                     <View>
                         <Button info
@@ -144,7 +140,7 @@ export default class AbaqueScreen extends React.Component {
                             <Text>Calculer résultat</Text>
                         </Button>
                     </View>
-                </View>
+                </View>}
 
 
                     <View style={[s.container, s.center]}>
@@ -224,3 +220,19 @@ export default class AbaqueScreen extends React.Component {
         );
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return state
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {
+            dispatch(action)
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AbaqueScreen)

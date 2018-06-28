@@ -25,4 +25,7 @@ export default {
     paramInputError2:'La hauteur ne doit pas être nulle',
     paramInputError3:'Le volume ne doit pas être nul',
 
+    noParams: 'Vous devez d\'abord ajouter des paramètres',
+    noData: 'Vous devez d\'abord ajouter votre abaque comme votre cuve n\'est pas cylindrique',
+
 };

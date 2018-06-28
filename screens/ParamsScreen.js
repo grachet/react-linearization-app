@@ -13,6 +13,8 @@ import {
 import {Container, Header, Content, H1, H2, H3, Button, Text, Item, Input} from 'native-base';
 import text from "../constants/Text";
 import t from 'tcomb-form-native';
+import {connect} from 'react-redux'
+
 
 var Form = t.form.Form;
 const width = Dimensions.get('window').width;
@@ -46,7 +48,7 @@ const options = {
 };
 
 
-export default class ParamsScreen extends React.Component {
+class ParamsScreen extends React.Component {
     static navigationOptions = {
         title: 'Dimension de la cuve',
         headerStyle: {
@@ -59,24 +61,42 @@ export default class ParamsScreen extends React.Component {
         super(props);
     }
 
+
     submitParam = (type) => {
         const {navigate} = this.props.navigation;
-        const value = this._form.getValue();
+        let value = this._form.getValue();
         if (type === 'cylindrique') {
             if (value) {
-
+                this._setParams([].concat(value, {isCylinder: true}));
+                this._setPoints(value);
                 navigate('Result')
             }
 
         }
         if (type === 'divers') {
             if (value) {
-
+                this._setParams([].concat(value, {isCylinder: false}));
                 navigate('Abaque')
             }
 
         }
     }
+
+    _setParams = (value) => {
+        const action = {type: "SET_PARAMS", value: value}
+        this.props.dispatch(action)
+    };
+
+    _setPoints = (value) => {
+
+        const data = [{ "hauteur": 2,
+            "volume": 2,},{ "hauteur": 2,
+            "volume": 2,},{ "hauteur": 2,
+            "volume": 2,}]
+        const action = {type: "SET_POINTS", value: data}
+        this.props.dispatch(action)
+    };
+
 
     render() {
         const {navigate} = this.props.navigation;
@@ -88,7 +108,7 @@ export default class ParamsScreen extends React.Component {
                 <View style={[s.container, s.center, s.m_md]}>
 
 
-                        <Form type={Params} ref={c => this._form = c} options={options}/>
+                    <Form type={Params} ref={c => this._form = c} options={options}/>
 
 
                     <View style={{marginTop: 15, alignItems: 'center'}}>
@@ -113,3 +133,19 @@ export default class ParamsScreen extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return state
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {
+            dispatch(action)
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ParamsScreen)
+
