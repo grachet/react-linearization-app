@@ -76,6 +76,13 @@ export default {
         textAlign: Platform.OS === 'ios' ? 'justify' : 'center',
         marginTop: 15,
     },
+    textCenter: {
+        fontSize: 17,
+        color: c.greyText,
+        lineHeight: 24,
+        textAlign:  'center',
+        marginTop: 15,
+    },
     boldText: {
         fontSize: 17,
         color: c.greyText,

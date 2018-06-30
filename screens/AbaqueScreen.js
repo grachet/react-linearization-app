@@ -137,7 +137,7 @@ class AbaqueScreen extends React.Component {
                     <View>
                         <Button info
                                 onPress={() => navigate('Result')}>
-                            <Text>Calculer résultat</Text>
+                            <Text>Résultats</Text>
                         </Button>
                     </View>
                 </View>}

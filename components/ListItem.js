@@ -39,7 +39,7 @@ export default class ListItem extends React.Component {
         let col1, col2;
         if (type === 'abaque') {
             col2 = values.hauteur + '  m ';
-            col1 = values.volume + '  L/m3 ';
+            col1 = values.volume + '  m3 ';
         } else if (type === 'result') {
             col1 = values.affichage;
             col2 = values.courant + '  mA ';;

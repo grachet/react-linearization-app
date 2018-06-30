@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Container, Header, Content, H1, H2, H3, Button, Text, Item, Input} from 'native-base';
 import text from "../constants/Text";
+import fn from "../functions/calcul";
 import t from 'tcomb-form-native';
 import {connect} from 'react-redux'
 
@@ -89,11 +90,9 @@ class ParamsScreen extends React.Component {
 
     _setPoints = (value) => {
 
-        const data = [{ "hauteur": 2,
-            "volume": 2,},{ "hauteur": 2,
-            "volume": 2,},{ "hauteur": 2,
-            "volume": 2,}]
-        const action = {type: "SET_POINTS", value: data}
+        const data = fn.getAbaqueCylinder(value);
+
+        const action = {type: "SET_POINTS", value: data};
         this.props.dispatch(action)
     };
 

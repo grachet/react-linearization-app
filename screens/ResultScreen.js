@@ -14,6 +14,7 @@ import text from "../constants/Text";
 import ListItem from '../components/ListItem'
 import {connect} from 'react-redux'
 import {Button, Input, Item, Text} from 'native-base';
+import fn from "../functions/calcul";
 
 class ResultScreen extends React.Component {
     static navigationOptions = {
@@ -45,7 +46,30 @@ class ResultScreen extends React.Component {
     }*/
 
     getData(value) {
-        return value
+
+        const data = [];
+        let hauteur = value.hauteur;
+        let volume = value.volume;
+        let points = value.points;
+        console.log(points.length, 'caca');
+
+        console.log(Math.max.apply(Math, value.map(function (o) {
+            return o.volume;
+        })));
+        const maxVolume = Math.max.apply(Math, value.map(function (o) {
+            return o.volume;
+        }));
+
+        for (var i = 0; i < 10; i++) {
+            data.push({
+                hauteur: 1,
+                affichage: fn.format4dig(points.volume,maxVolume)
+            })
+        }
+
+        console.log(pointsAbaque);
+        return data;
+
     }
 
 
@@ -66,17 +90,17 @@ class ResultScreen extends React.Component {
                 }
 
                 {noParams &&
-                <Text style={[s.text, s.m_md, s.mt_lg]}>{text.noParams}</Text>
+                <Text style={[s.textCenter, s.m_md, s.mt_lg]}>{text.noParams}</Text>
                 }
 
                 {(noParams || noData) &&
                 <View style={[s.center, s.mt_md]}>
                     <Button info
-                            onPress={noParams ? () => navigate('Params') :  () => navigate('Abaque')
+                            onPress={noParams ? () => navigate('Params') : () => navigate('Abaque')
                             }><Text> Ajouter </Text>
                     </Button>
                 </View>
-               }
+                }
 
                 {!noData && !noParams &&
                 <Text style={[s.text, s.m_md]}>{text.resultText}</Text>
