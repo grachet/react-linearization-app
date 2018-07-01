@@ -35,7 +35,6 @@ export default class ListItem extends React.Component {
 
         const {type, onDelete, index, values} = this.props;
         const isHeader = type === 'header';
-        console.log(onDelete)
         let col1, col2;
         if (type === 'abaque') {
             col2 = values.hauteur + '  m ';

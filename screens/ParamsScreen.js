@@ -69,7 +69,8 @@ class ParamsScreen extends React.Component {
         if (type === 'cylindrique') {
             if (value) {
                 this._setParams([].concat(value, {isCylinder: true}));
-                this._setPoints(value);
+                const data = fn.getAbaqueCylinder(value);
+                this._setPoints(data);
                 navigate('Result')
             }
 
@@ -77,6 +78,7 @@ class ParamsScreen extends React.Component {
         if (type === 'divers') {
             if (value) {
                 this._setParams([].concat(value, {isCylinder: false}));
+                this._setPoints([]);
                 navigate('Abaque')
             }
 
@@ -89,10 +91,7 @@ class ParamsScreen extends React.Component {
     };
 
     _setPoints = (value) => {
-
-        const data = fn.getAbaqueCylinder(value);
-
-        const action = {type: "SET_POINTS", value: data};
+        const action = {type: "SET_POINTS", value: value};
         this.props.dispatch(action)
     };
 
@@ -107,7 +106,11 @@ class ParamsScreen extends React.Component {
                 <View style={[s.container, s.center, s.m_md]}>
 
 
-                    <Form type={Params} ref={c => this._form = c} options={options}/>
+                    <Form type={Params} ref={c => this._form = c} value={{
+                        volume: this.props.volume,
+                        hauteur: this.props.hauteur,
+                        echelle: this.props.echelle,
+                    }} options={options}/>
 
 
                     <View style={{marginTop: 15, alignItems: 'center'}}>

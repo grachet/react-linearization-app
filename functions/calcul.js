@@ -1,24 +1,11 @@
-let ten_HN = new Array(0, 107, 395, 787, 1307, 2789, 3309, 3701, 3989, 4096);	//Hauteur normalisée sur 10 points ( / 4096)
-let ten_VN = new Array(0, 23, 196, 544, 1120, 2976, 3552, 3900, 4073, 4096);	//Volume normalisé sur 10 points ( / 4096)
-
-
-let PLECH = 0;						//   Pleine échelle du capteur
-let HAUT = 1;						//   Hauteur de la cuve
-let VOLUME = 2;						//   Volume de la cuve
-
-let param_val = new Array(3);				// Valeurs des paramètres
-
-let nbPnt = 10;						// Nombre de points pour la linéarisation
-let coma = 0;						// Position de la virgule en fonction du volume de la cuve
-
-
-let SigMin = 4.00;
-let SigMax = 20.00;
 
 
 export default {
 
     getAbaqueCylinder: (value) => {
+
+        let ten_HN = new Array(0, 107, 395, 787, 1307, 2789, 3309, 3701, 3989, 4096);	//Hauteur normalisée sur 10 points ( / 4096)
+        let ten_VN = new Array(0, 23, 196, 544, 1120, 2976, 3552, 3900, 4073, 4096);	//Volume normalisé sur 10 points ( / 4096)
 
         const pointsAbaque = [];
         let hauteur = value.hauteur;
@@ -32,13 +19,7 @@ export default {
             })
         }
 
-        console.log(pointsAbaque);
         return pointsAbaque;
-    },
-
-    getResult: () => {
-
-
     },
 
     format4dig: (num, volumeMax) => {
@@ -51,6 +32,9 @@ export default {
             else if (volumeMax >= 10)   coma = 2;
             else                  coma = 3;
 
+            if (volumeMax === -9999) {
+                coma = 2;
+            }
 
 
         if (coma === 0) {
@@ -69,7 +53,9 @@ export default {
         else
             zstr = "";
 
-        return zstr + num.toFixed(coma);
+        console.log(coma, 'coma')
+
+        return zstr + (num*1).toFixed(coma);
     }
 
 

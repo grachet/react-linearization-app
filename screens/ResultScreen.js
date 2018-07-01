@@ -36,38 +36,31 @@ class ResultScreen extends React.Component {
 
     }
 
-    /*
-    componentDidUpdate() {
-        console.log("componentDidUpdate : ");
-        console.log(this.props.echelle, 'echelle');
-        console.log(this.props.hauteur, 'hauteur');
-        console.log(this.props.volume, 'volume');
-        console.log(this.props.points, 'points');
-    }*/
 
     getData(value) {
+
+        if(value.points.length === 0 || !value.points || !value.volume) {return []}
 
         const data = [];
         let hauteur = value.hauteur;
         let volume = value.volume;
-        let points = value.points;
-        console.log(points.length, 'caca');
+        console.log(value)
 
-        console.log(Math.max.apply(Math, value.map(function (o) {
-            return o.volume;
-        })));
-        const maxVolume = Math.max.apply(Math, value.map(function (o) {
+        const maxVolume = Math.max.apply(Math, value.points.map(function (o) {
             return o.volume;
         }));
 
-        for (var i = 0; i < 10; i++) {
+        let SigMin = 4.00;
+        let SigMax = 20.00;
+
+        for (var i = 0; i < value.points.length; i++) {
             data.push({
-                hauteur: 1,
-                affichage: fn.format4dig(points.volume,maxVolume)
+                courant: fn.format4dig(SigMin + value.points[i].hauteur * (SigMax - SigMin) / value.echelle, -9999),
+                affichage: fn.format4dig(value.points[i].volume,maxVolume)
             })
         }
 
-        console.log(pointsAbaque);
+        console.log(data);
         return data;
 
     }
@@ -116,7 +109,7 @@ class ResultScreen extends React.Component {
 
                 <ScrollView style={s.container}>
                     <FlatList
-                        data={this.getData(this.props.points)}
+                        data={this.getData(this.props)}
                         keyExtractor={(item, index) => index}
                         renderItem={({item, index}) => (
                             <ListItem

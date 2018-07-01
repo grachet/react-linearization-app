@@ -103,15 +103,21 @@ class AbaqueScreen extends React.Component {
     askDeletePoint = (index) => {
 
         Alert.alert(
-            'Supprimer ?',
+            'Quelle action ?',
             '',
             [
-                {text: 'Ok', onPress: () => this.deletePoint(index)},
+                {text: 'Supprimer', onPress: () => this.deletePoint(index)},
+                {text: 'Modifier', onPress: () => this.modifierPoint(index)},
                 {text: 'Annuler'},
             ],
             { cancelable: false }
         )
 
+    }
+
+    modifierPoint = (index) => {
+        const action = {type: "DELETE_POINT", index: index}
+        this.props.dispatch(action)
     }
 
     deletePoint = (index) => {
@@ -179,7 +185,8 @@ class AbaqueScreen extends React.Component {
                             >
                                 <View style={[s.modalView, s.center]}>
 
-                                    <Form type={Point} ref={c => this._form = c} options={options}/>
+
+                                    <Form type={Point} ref={c => this._form = c}  options={options}/>
 
                                     <View style={[s.row, s.mt_lg, s.center]}>
                                         <View style={{marginRight: 5}}>
