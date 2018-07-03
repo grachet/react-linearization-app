@@ -35,15 +35,15 @@ const options = {
     fields: {
         echelle: {
             label: text.paramInput1,
-            error: text.paramInputError1,
+            error: text.longNoEchelle,
         },
         hauteur: {
             label: text.paramInput2,
-            error: text.paramInputError2,
+            error: text.longNoHauteur,
         },
         volume: {
             label: text.paramInput3,
-            error: text.paramInputError2,
+            error: text.longNoVolume,
         },
     },
 };
@@ -77,8 +77,11 @@ class ParamsScreen extends React.Component {
         }
         if (type === 'divers') {
             if (value) {
+                if (this.props.volume && this.props.isCylinder) {
+                    this._setPoints([]);
+                }
+
                 this._setParams([].concat(value, {isCylinder: false}));
-                this._setPoints([]);
                 navigate('Abaque')
             }
 
@@ -100,7 +103,7 @@ class ParamsScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
 
-
+//todo KeyboardAwareScrollView 
             <ScrollView style={s.container}>
 
                 <View style={[s.container, s.center, s.m_md]}>
@@ -116,15 +119,18 @@ class ParamsScreen extends React.Component {
                     <View style={{marginTop: 15, alignItems: 'center'}}>
                         <Button
                             style={{backgroundColor: !this.props.volume ? c.tabIconDefault : this.props.isCylinder ? c.tabIconDefault : c.blueSky}}
-                                onPress={() => this.submitParam('divers')
-                                }><Text   style={{color: !this.props.volume ? c.greyText  : this.props.isCylinder ? c.greyText : c.white}}> Cuve divers </Text>
+                            onPress={() => this.submitParam('divers')
+                            }><Text
+                            style={{color: !this.props.volume ? c.lgreyText : this.props.isCylinder ? c.lgreyText : c.white}}> Cuve
+                            diverse </Text>
                         </Button>
                     </View>
                     <View style={[s.mb_lg, s.center, s.mt_md]}>
                         <Button
                             style={{backgroundColor: this.props.isCylinder ? c.blueSky : c.tabIconDefault}}
-                                onPress={() => this.submitParam('cylindrique')
-                                }><Text   style={{color: this.props.isCylinder ? c.white : c.greyText}}> Cuve cylindrique </Text>
+                            onPress={() => this.submitParam('cylindrique')
+                            }><Text style={{color: this.props.isCylinder ? c.white : c.lgreyText}}> Cuve
+                            cylindrique </Text>
                         </Button>
                     </View>
 

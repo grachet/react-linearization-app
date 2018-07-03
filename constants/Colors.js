@@ -18,6 +18,7 @@ export default {
     lightGrey: '#989898',
     mainBackgroundApp: '#e8e8e8',
     greyText: 'rgba(96,100,109, 1)',
+    lgreyText: '#8f8f8f',
     whiteGrey: '#f6f6f6',
     blueSky: tintColor
 };

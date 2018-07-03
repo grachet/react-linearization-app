@@ -2,9 +2,9 @@ const tintColor = '#2f95dc';
 
 export default {
     homeL1: 'Cette application vous facilite la mise en oeuvre de la linéarisation du volume des cuves.',
-    homeL2: 'Pour commencer, veuillez indiquer vos données dans l\'onglet paramètre, ils sont nécessaires au calcul.',
+    homeL2: 'Pour commencer, veuillez indiquer vos données dans l\'onglet paramètres.',
     homeL3: 'Ensuite, si votre cuve est cylindrique tout est calculé automatiquement. Sinon, vous devez vous remplir l\'abaque à partir de votre documentation. ',
-    homeL4: 'Et bien sûr visualiser les valeurs dans l\'onglet résultat.',
+    homeL4: 'Enfin, visualisez les valeurs dans l\'onglet résultat.',
 
 
     paramInput1: 'Pleine échelle du capteur (m)',
@@ -19,12 +19,13 @@ export default {
     abaqueModalText:'Ajouter un point',
     abaqueModalInput1:'Volume (m3 ou L)',
     abaqueModalInput2:'Hauteur (m)',
-    abaqueModalError1:'Volume nul !',
-    abaqueModalError2:'Hauteur nulle !',
 
-    paramInputError1:'L\'échelle ne doit pas être nulle',
-    paramInputError2:'La hauteur ne doit pas être nulle',
-    paramInputError3:'Le volume ne doit pas être nul',
+  shortNoVolume:'Volume nul !',
+  shortNoHauteur:'Hauteur nulle !',
+
+    longNoEchelle:'L\'échelle ne doit pas être nulle',
+    longNoHauteur:'La hauteur ne doit pas être nulle',
+    longNoVolume:'Le volume ne doit pas être nul',
 
     noParams: 'Vous devez d\'abord ajouter des paramètres',
     noData: 'Vous devez d\'abord ajouter votre abaque comme votre cuve n\'est pas cylindrique',

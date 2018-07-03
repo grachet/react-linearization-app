@@ -45,11 +45,11 @@ const options = {
     fields: {
         volume: {
             placeholder: text.abaqueModalInput1,
-            error: text.abaqueModalError1,
+            error: text.shortNoVolume,
         },
         hauteur: {
             placeholder: text.abaqueModalInput2,
-            error: text.abaqueModalError2,
+            error: text.shortNoHauteur,
         },
     },
 };
@@ -94,7 +94,6 @@ class AbaqueScreen extends React.Component {
 
         const index = this.state.indexRow;
 
-        console.log(index);
 
         const value = this._form.getValue();
 
@@ -108,9 +107,10 @@ class AbaqueScreen extends React.Component {
             this.hideModal();
             const action = {type: "MOD_POINT", value: value, index: index};
             this.props.dispatch(action)
+            this.setState({indexRow: null});
         }
 
-        this.setState({indexRow: null});
+
 
     }
 
@@ -186,7 +186,7 @@ class AbaqueScreen extends React.Component {
                     <View>
                         <Button info
                                 onPress={() => navigate('Result')}>
-                            <Text>Résultats</Text>
+                            <Text>Résultats {this.props.isCylinder ? '(cylindre)' : '(divers)'}</Text>
                         </Button>
                     </View>
                 </View>}
