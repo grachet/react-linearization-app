@@ -12,14 +12,15 @@ export default {
     paramInput3: 'Volume de cuve (m3/L)',
     paramCylinderText: 'Si votre cuve est cylindrique, l\'abaque sera calculée automatiquement.',
 
-    abaqueHelp1: 'Si votre cuve n\'est pas cylindrique, vous devez ajouter les points de votre abaque avec le bouton + ',
+    abaqueHelp1: 'Vous devez ajouter les points de votre abaque avec le bouton (+) car votre cuve n\'est pas cylindrique. ',
+
 
     resultText: 'Les valeurs ci-dessous sont celles à entrer dans un afficheur ALP842.',
     abaqueModalText:'Ajouter un point',
     abaqueModalInput1:'Volume (m3 ou L)',
     abaqueModalInput2:'Hauteur (m)',
-    abaqueModalError1:'Le volume ne doit pas être nul',
-    abaqueModalError2:'La hauteur ne doit pas être nulle',
+    abaqueModalError1:'Volume nul !',
+    abaqueModalError2:'Hauteur nulle !',
 
     paramInputError1:'L\'échelle ne doit pas être nulle',
     paramInputError2:'La hauteur ne doit pas être nulle',

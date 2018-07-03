@@ -114,15 +114,17 @@ class ParamsScreen extends React.Component {
 
 
                     <View style={{marginTop: 15, alignItems: 'center'}}>
-                        <Button info
+                        <Button
+                            style={{backgroundColor: !this.props.volume ? c.tabIconDefault : this.props.isCylinder ? c.tabIconDefault : c.blueSky}}
                                 onPress={() => this.submitParam('divers')
-                                }><Text> Cuve diverse </Text>
+                                }><Text   style={{color: !this.props.volume ? c.greyText  : this.props.isCylinder ? c.greyText : c.white}}> Cuve divers </Text>
                         </Button>
                     </View>
                     <View style={[s.mb_lg, s.center, s.mt_md]}>
-                        <Button info
+                        <Button
+                            style={{backgroundColor: this.props.isCylinder ? c.blueSky : c.tabIconDefault}}
                                 onPress={() => this.submitParam('cylindrique')
-                                }><Text> Cuve cylindrique </Text>
+                                }><Text   style={{color: this.props.isCylinder ? c.white : c.greyText}}> Cuve cylindrique </Text>
                         </Button>
                     </View>
 

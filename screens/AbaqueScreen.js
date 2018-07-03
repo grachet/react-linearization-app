@@ -38,33 +38,24 @@ const Point = t.struct({
 
 t.form.Form.stylesheet.formGroup.normal.width = width - 100;
 t.form.Form.stylesheet.formGroup.error.width = width - 100;
-t.form.Form.stylesheet.textboxView.normal.marginBottom = 15;
-t.form.Form.stylesheet.controlLabel.normal.marginTop = 10;
-t.form.Form.stylesheet.controlLabel.error.marginTop = 15;
 
 
 const options = {
+    auto: 'placeholders',
     fields: {
         volume: {
-            label: text.abaqueModalInput1,
+            placeholder: text.abaqueModalInput1,
             error: text.abaqueModalError1,
         },
         hauteur: {
-            label: text.abaqueModalInput2,
+            placeholder: text.abaqueModalInput2,
             error: text.abaqueModalError2,
         },
     },
 };
 
 class AbaqueScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Abaque',
-        headerStyle: {
-            backgroundColor: c.blueSky,
-        },
-        headerTintColor: c.white,
 
-    };
 
     constructor(props) {
         super(props);
@@ -75,10 +66,19 @@ class AbaqueScreen extends React.Component {
         this.state = {
             showModal: false,
             points: [],
+            indexRow: null,
         };
 
     }
 
+    static navigationOptions = {
+        title: 'Abaque',
+        headerStyle: {
+            backgroundColor: c.blueSky,
+        },
+        headerTintColor: c.white,
+
+    };
 
 
     showModal = () => {
@@ -86,17 +86,31 @@ class AbaqueScreen extends React.Component {
     }
 
     hideModal = () => {
-        this.setState({showModal: false});
+        this.setState({showModal: false, indexRow: null});
     }
 
     addPoint = () => {
 
+
+        const index = this.state.indexRow;
+
+        console.log(index);
+
         const value = this._form.getValue();
-        if (value) {
+
+        if (value && !index) {
             this.hideModal();
-            const action = {type: "ADD_POINT", value: value}
+            const action = {type: "ADD_POINT", value: value};
             this.props.dispatch(action)
         }
+
+        if (value && index) {
+            this.hideModal();
+            const action = {type: "MOD_POINT", value: value, index: index};
+            this.props.dispatch(action)
+        }
+
+        this.setState({indexRow: null});
 
     }
 
@@ -106,18 +120,18 @@ class AbaqueScreen extends React.Component {
             'Quelle action ?',
             '',
             [
-                {text: 'Supprimer', onPress: () => this.deletePoint(index)},
                 {text: 'Modifier', onPress: () => this.modifierPoint(index)},
+                {text: 'Supprimer', onPress: () => this.deletePoint(index)},
                 {text: 'Annuler'},
             ],
-            { cancelable: false }
+            {cancelable: false}
         )
 
     }
 
     modifierPoint = (index) => {
-        const action = {type: "DELETE_POINT", index: index}
-        this.props.dispatch(action)
+        this.setState({indexRow: index + 1});
+        this.showModal();
     }
 
     deletePoint = (index) => {
@@ -125,17 +139,46 @@ class AbaqueScreen extends React.Component {
         this.props.dispatch(action)
     }
 
+    renderButton = () => {
+        const addIconName = Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle';
+        return (<View style={[s.actionButton]}>
+            <TouchableOpacity
+                onPress={() => this.showModal()
+                }>
+                <Icon.Ionicons
+                    name={addIconName}
+                    size={60}
+                    color={c.blueSky}
+                />
+            </TouchableOpacity>
+        </View>)
+    }
+
     render() {
 
         const points = this.props.points;
         const noPoints = (points === {} || points.length === 0 || points === null)
-        const addIconName = Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle';
+        const noParams = !this.props.volume;
+
         const {navigate} = this.props.navigation;
         return (
 
-            <View style={[s.container]}>
+            <View style={[s.container, s.center]}>
 
-                {noPoints &&
+                {noParams &&
+                <Text style={[s.textCenter, s.m_md, s.mt_lg]}>{text.noParams}</Text>
+                }
+
+                {noParams &&
+                <View style={[s.center, s.mt_md]}>
+                    <Button info
+                            onPress={() => navigate('Params')}>
+                        <Text> Ajouter </Text>
+                    </Button>
+                </View>
+                }
+
+                {noPoints && !noParams &&
                 <Text style={[s.m_md, s.text]}>{text.abaqueHelp1}</Text>}
 
                 {!noPoints &&
@@ -149,15 +192,16 @@ class AbaqueScreen extends React.Component {
                 </View>}
 
 
-                    <View style={[s.container, s.center]}>
+                <View style={[s.container, s.center]}>
 
-                        {!noPoints &&
-                        <ListItem
-                            type={'header'}
-                            values={this.headerTable}
-                            index={''}
-                        />}
-                        <ScrollView style={s.container}>
+
+                    {!noPoints &&
+                    <ListItem
+                        type={'header'}
+                        values={this.headerTable}
+                        index={''}
+                    />}
+                    <ScrollView style={s.container}>
                         <FlatList
                             data={points}
                             keyExtractor={(item, index) => index}
@@ -171,57 +215,49 @@ class AbaqueScreen extends React.Component {
                             )}
                         />
 
-                        </ScrollView>
+                    </ScrollView>
 
-                        <View>
-                            <Modal
-                                isVisible={this.state.showModal}
-                                backdropOpacity={0.3}
-                                onBackButtonPress={() => this.hideModal()}
-                                onBackdropPress={() => this.hideModal()}
-                                onSwipe={() => this.hideModal()}
-                                swipeDirection="right"
-                                style={s.modalContainer}
-                            >
-                                <View style={[s.modalView, s.center]}>
+                    <View>
+                        <Modal
+                            isVisible={this.state.showModal}
+                            backdropOpacity={0.3}
+                            onBackButtonPress={() => this.hideModal()}
+                            onBackdropPress={() => this.hideModal()}
+                            onSwipe={() => this.hideModal()}
+                            swipeDirection="right"
+                            style={s.modalContainer}
+                            avoidKeyboard={true}
+                        >
+                            <View style={[s.modalView, s.center]}>
 
 
-                                    <Form type={Point} ref={c => this._form = c}  options={options}/>
+                                <Form type={Point} ref={c => this._form = c} options={options}/>
 
-                                    <View style={[s.row, s.mt_lg, s.center]}>
-                                        <View style={{marginRight: 5}}>
-                                            <Button info
-                                                    onPress={() => this.addPoint()
-                                                    }><Text>Ajouter</Text>
-                                            </Button>
-                                        </View>
-                                        <View style={{marginLeft: 5}}>
-                                            <Button danger
-                                                    onPress={() => this.hideModal()
-                                                    }><Text>Annuler</Text>
-                                            </Button>
-                                        </View>
+                                <View style={[s.row, s.center]}>
+                                    <View style={{marginRight: 5}}>
+                                        <Button info
+                                                onPress={() => this.addPoint()
+                                                }><Text>Ajouter</Text>
+                                        </Button>
                                     </View>
-
+                                    <View style={{marginLeft: 5}}>
+                                        <Button danger
+                                                onPress={() => this.hideModal()
+                                                }><Text>Annuler</Text>
+                                        </Button>
+                                    </View>
                                 </View>
-                            </Modal>
-                        </View>
 
-
+                            </View>
+                        </Modal>
                     </View>
 
 
-                <View style={[s.actionButton]}>
-                    <TouchableOpacity
-                        onPress={() => this.showModal()
-                        }>
-                        <Icon.Ionicons
-                            name={addIconName}
-                            size={60}
-                            color={c.blueSky}
-                        />
-                    </TouchableOpacity>
                 </View>
+
+
+                {!noParams && this.renderButton()}
+
 
             </View>
         );

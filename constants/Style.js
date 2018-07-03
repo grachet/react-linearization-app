@@ -57,8 +57,7 @@ export default {
         marginHorizontal: 10,
     },
     modalContainer: {
-        justifyContent: 'flex-start',
-       marginTop: 32,
+        justifyContent: 'center',
        // marginHorizontal: 30,
     },
 

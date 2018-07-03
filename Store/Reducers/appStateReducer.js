@@ -18,6 +18,16 @@ function setAppState(state = initialState, action) {
             };
             return nextState || state;
 
+        case 'MOD_POINT':
+            let data = JSON.parse(JSON.stringify(state.points));
+            data[action.index -1] = action.value;
+            console.log(state)
+            nextState = {
+                ...state,
+                points: data
+            };
+            return nextState || state;
+
         case 'SET_POINTS':
             nextState = {
                 ...state,
