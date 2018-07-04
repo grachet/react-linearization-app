@@ -56,7 +56,18 @@ export default {
         console.log(coma, 'coma')
 
         return zstr + (num*1).toFixed(coma);
+    },
+
+    clearNumber: (num) => {
+        var chaine = num.replace(',','.');
+        chaine = chaine.replace(' ','');
+        return parseFloat(chaine);
     }
+
+
+
+
+
 
 
 }

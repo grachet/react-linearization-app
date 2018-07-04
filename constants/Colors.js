@@ -20,5 +20,6 @@ export default {
     greyText: 'rgba(96,100,109, 1)',
     lgreyText: '#8f8f8f',
     whiteGrey: '#f6f6f6',
+    blueLink: '#628ec4',
     blueSky: tintColor
 };

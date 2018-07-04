@@ -18,35 +18,79 @@ import {connect} from 'react-redux'
 
 
 var Form = t.form.Form;
-const width = Dimensions.get('window').width;
-const Params = t.struct({
-    echelle: t.Number,
-    hauteur: t.Number,
-    volume: t.Number,
-});
 
-t.form.Form.stylesheet.textboxView.normal.marginBottom = 15;
+var Nil = t.Nil;
+function toNull(value) {
+    return (t.Str.is(value) && value.trim() === '') || Nil.is(value) ? null : value;
+}
+
+var myNumberTransformer = {
+    format: value => Nil.is(value) ? null : String(value),
+    parse: value =>{
+        if(value)
+            value = value.replace(/,/g, '.');
+        var n = parseFloat(value);
+        var isNumeric = (value - n + 1) >= 0;
+        return isNumeric ? n : toNull(value);
+    }
+};
+// Globally set number transformer
+t.form.Textbox.numberTransformer = myNumberTransformer;
+
+t.form.Form.stylesheet.textboxView.normal.marginBottom = 8;
 t.form.Form.stylesheet.textbox.normal.backgroundColor = c.whiteGrey;
 t.form.Form.stylesheet.textbox.error.backgroundColor = c.whiteGrey;
-t.form.Form.stylesheet.controlLabel.normal.marginTop = 10;
+t.form.Form.stylesheet.controlLabel.normal.marginTop = 8;
 t.form.Form.stylesheet.controlLabel.error.marginTop = 15;
+
+const width = Dimensions.get('window').width;
+
+var echelleType = t.refinement(t.Number, function (n) {
+    return n >= 0 && n <= 9999;
+});
+var hauteurType = t.refinement(t.Number, function (n) {
+    return n >= 0 && n <= 9999;
+});
+var volumeType = t.refinement(t.Number, function (n) {
+    return n >= 0 && n <= 9999;
+});
+
+echelleType.getValidationErrorMessage = function (value, path, context) {
+    return value === null ? text.longNoEchelle : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigEchelle : text.longNoEchelle;
+};
+hauteurType.getValidationErrorMessage = function (value, path, context) {
+    return  value === null ? text.longNoHauteur : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigHauteur : text.longNoHauteur;
+};
+volumeType.getValidationErrorMessage = function (value, path, context) {
+    return value === null ? text.longNoVolume : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigVolume : text.longNoVolume;
+};
+
+
+//La pleine échelle est inférieure à la hauteur de cuve. Etes-vous sûr ?...
+
+
+
+const Params = t.struct({
+    echelle: echelleType,//echelleType,
+    hauteur: hauteurType,
+    volume: volumeType,
+});
+
 
 const options = {
     fields: {
         echelle: {
             label: text.paramInput1,
-            error: text.longNoEchelle,
         },
         hauteur: {
             label: text.paramInput2,
-            error: text.longNoHauteur,
         },
         volume: {
             label: text.paramInput3,
-            error: text.longNoVolume,
         },
     },
 };
+
 
 
 class ParamsScreen extends React.Component {
@@ -60,6 +104,7 @@ class ParamsScreen extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state ={};
     }
 
 
@@ -88,6 +133,12 @@ class ParamsScreen extends React.Component {
         }
     }
 
+    onChangeForm(value, path) {
+        let newValue = fn.clearNumber(value[path])
+        value[path] = newValue;
+        this.setState({value});
+    }
+
     _setParams = (value) => {
         const action = {type: "SET_PARAMS", value: value}
         this.props.dispatch(action)
@@ -109,11 +160,14 @@ class ParamsScreen extends React.Component {
                 <View style={[s.container, s.center, s.m_md]}>
 
 
-                    <Form type={Params} ref={c => this._form = c} value={{
-                        volume: this.props.volume,
-                        hauteur: this.props.hauteur,
-                        echelle: this.props.echelle,
-                    }} options={options}/>
+                    <Form type={Params} ref={c => this._form = c}
+                          value={{
+                              volume: this.props.volume,
+                              hauteur: this.props.hauteur,
+                              echelle: this.props.echelle,
+                          }}
+                          options={options}
+                    />
 
 
                     <View style={{marginTop: 15, alignItems: 'center'}}>
@@ -134,8 +188,7 @@ class ParamsScreen extends React.Component {
                         </Button>
                     </View>
 
-                    <Text
-                        style={[s.mb_lg, s.text]}>{text.paramCylinderText}</Text>
+                    {/*<Text style={[s.mb_lg, s.text]}>{text.paramCylinderText}</Text>*/}
                 </View>
 
 

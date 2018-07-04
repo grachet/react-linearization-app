@@ -11,8 +11,10 @@ import {
     View,
     WebView,
     Linking,
-    TouchableHighlight
+    TouchableHighlight, Dimensions
 } from 'react-native';
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 
 import {Button, Text} from 'native-base';
@@ -36,8 +38,10 @@ export default class HomeScreen extends React.Component {
         const {navigate} = this.props.navigation;
 
         return (
-            <ScrollView style={s.container}>
-                <View style={[s.container, s.center,]}>
+
+            <View style={[s.container]}>
+
+                <View style={[s.center, {flex: 0.30, backgroundColor: c.white}]}>
                     <TouchableHighlight
                         onPress={() => Linking.openURL('http://www.hitec.fr/')}
                     >
@@ -45,26 +49,31 @@ export default class HomeScreen extends React.Component {
                             source={
                                 require('../assets/images/logo_hitec.jpg')
                             }
-                            style={s.Image}
+                            style={s.image}
                         />
                     </TouchableHighlight>
                 </View>
 
-                <View style={[s.container, s.center, s.m_md]}>
-                    <Text style={s.text}>{text.homeL1}</Text>
-                    <Text style={[s.text]}>{text.homeL2}</Text>
-                    <Text style={[ s.text]}>{text.homeL3}</Text>
-                    <Text style={[s.text, s.mb_lg]}>{text.homeL4}</Text>
+                <ScrollView style={s.container}>
+                    <View style={[s.center, {flex: 0.75, paddingHorizontal: 15, paddingTop : 8}]}>
+                        <Text style={s.stext}>{text.homeL1}</Text>
+                        <Text style={[s.stext]}>{text.homeL2}</Text>
+                        <Text style={[s.stext]}>{text.homeL3}</Text>
+                        <Text style={[s.stext, s.mb_md]}>{text.homeL4}</Text>
+                    </View>
+                </ScrollView>
 
-                    <View style={[s.center,s.mb_lg]}>
-                    <Button info
-                            onPress={() => navigate('Params')
-                            }><Text> Commencer </Text>
-                    </Button>
+                <View style={[s.center, {flex: 0.20, justifyContent: 'center'}]}>
+                    <View style={[s.center]}>
+                        <Button info
+                                small={height < 600}
+                                onPress={() => navigate('Params')
+                                }><Text> Commencer </Text>
+                        </Button>
                     </View>
                 </View>
 
-            </ScrollView>
+            </View>
         );
     }
 }

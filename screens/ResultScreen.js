@@ -8,13 +8,14 @@ import {
     StyleSheet,
     TouchableOpacity,
     View,
-    FlatList
+    FlatList, Linking
 } from 'react-native';
 import text from "../constants/Text";
 import ListItem from '../components/ListItem'
 import {connect} from 'react-redux'
 import {Button, Input, Item, Text} from 'native-base';
 import fn from "../functions/calcul";
+import Hyperlink from 'react-native-hyperlink'
 
 class ResultScreen extends React.Component {
     static navigationOptions = {
@@ -96,8 +97,16 @@ class ResultScreen extends React.Component {
                 }
 
                 {!noData && !noParams &&
-                <Text style={[s.text, s.m_md]}>{text.resultText}</Text>
+                <Hyperlink
+                    onPress={ (url, text) => Linking.openURL(url) }
+                    linkStyle={[s.text, {color : c.blueLink}]}
+                    linkText={ url => url === 'http://www.hitec.fr/ALP842-Afficheur-4-20-mA' ? 'HITEC ALP842' : url }
+                >
+                    <Text style={[s.text, s.m_md]}>{text.resultText}</Text>
+                </Hyperlink>
                 }
+
+
 
                 {!noData && !noParams &&
                 <ListItem

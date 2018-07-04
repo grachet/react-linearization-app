@@ -31,25 +31,55 @@ const width = Dimensions.get('window').width;
 
 var Form = t.form.Form;
 
+var hauteurType = t.refinement(t.Number, function (n) {
+    return n >= 0 && n <= 9999;
+});
+var volumeType = t.refinement(t.Number, function (n) {
+    return n >= 0 && n <= 9999;
+});
+
+hauteurType.getValidationErrorMessage = function (value, path, context) {
+    return  value === null ? text.longNoHauteur : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigHauteur : text.longNoHauteur;
+};
+volumeType.getValidationErrorMessage = function (value, path, context) {
+    return value === null ? text.longNoVolume : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigVolume : text.longNoVolume;
+};
+
 const Point = t.struct({
-    volume: t.Number,
-    hauteur: t.Number,
+    volume: volumeType,
+    hauteur: hauteurType,
 });
 
 t.form.Form.stylesheet.formGroup.normal.width = width - 100;
 t.form.Form.stylesheet.formGroup.error.width = width - 100;
 
+var Nil = t.Nil;
+function toNull(value) {
+    return (t.Str.is(value) && value.trim() === '') || Nil.is(value) ? null : value;
+}
+
+var myNumberTransformer = {
+    format: value => Nil.is(value) ? null : String(value),
+    parse: value =>{
+        if(value)
+            value = value.replace(/,/g, '.');
+        var n = parseFloat(value);
+        var isNumeric = (value - n + 1) >= 0;
+        return isNumeric ? n : toNull(value);
+    }
+};
+
+
+t.form.Textbox.numberTransformer = myNumberTransformer;
 
 const options = {
     auto: 'placeholders',
     fields: {
         volume: {
             placeholder: text.abaqueModalInput1,
-            error: text.shortNoVolume,
         },
         hauteur: {
             placeholder: text.abaqueModalInput2,
-            error: text.shortNoHauteur,
         },
     },
 };

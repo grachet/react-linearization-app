@@ -50,11 +50,8 @@ export default {
     },
 
     image: {
-        width: width,
-        height: 0.45 * width,
+   flex:1,
         resizeMode: 'contain',
-        marginTop: 3,
-        marginHorizontal: 10,
     },
     modalContainer: {
         justifyContent: 'center',
@@ -74,6 +71,13 @@ export default {
         lineHeight: 24,
         textAlign: Platform.OS === 'ios' ? 'justify' : 'center',
         marginTop: 15,
+    },
+    stext: {
+        fontSize: 16,
+        color: c.greyText,
+        lineHeight: 20,
+        textAlign: Platform.OS === 'ios' ? 'justify' : 'center',
+        marginTop: 10,
     },
     textCenter: {
         fontSize: 17,
