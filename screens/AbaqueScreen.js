@@ -1,20 +1,9 @@
 import React from 'react';
 import s from '../constants/Style'
 import c from '../constants/Colors'
-import {
-    Image,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    TouchableOpacity,
-    TouchableHighlight,
-    View,
-    Dimensions,
-    FlatList,
-    Alert,
-} from 'react-native';
+import {Alert, Dimensions, FlatList, Platform, ScrollView, TouchableOpacity, View,} from 'react-native';
 import text from "../constants/Text";
-import {Button, Input, Item, Text} from 'native-base';
+import {Button, Text} from 'native-base';
 import Modal from "react-native-modal";
 import {Icon} from 'expo';
 import t from 'tcomb-form-native';
@@ -22,12 +11,6 @@ import ListItem from '../components/ListItem'
 import {connect} from 'react-redux'
 
 const width = Dimensions.get('window').width;
-
-//Issue was fixed for me by removing a space I had between my tags.
-//I've had the same problem for a while until I realized that in order to make a line break between 2 paragraphs, I had this {`\n`} between 2 Text components. Removing it fixed this issue for me
-// I had a semi colon somewhere it shouldn't have been. return <View><Text>Hi!</Text>;</View>;
-//https://github.com/facebook/react-native/issues/18773
-
 
 var Form = t.form.Form;
 
@@ -39,7 +22,7 @@ var volumeType = t.refinement(t.Number, function (n) {
 });
 
 hauteurType.getValidationErrorMessage = function (value, path, context) {
-    return  value === null ? text.longNoHauteur : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigHauteur : text.longNoHauteur;
+    return value === null ? text.longNoHauteur : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigHauteur : text.longNoHauteur;
 };
 volumeType.getValidationErrorMessage = function (value, path, context) {
     return value === null ? text.longNoVolume : isNaN(value) ? text.notNumber : value > 9999 ? text.tooBigVolume : text.longNoVolume;
@@ -50,18 +33,21 @@ const Point = t.struct({
     hauteur: hauteurType,
 });
 
-t.form.Form.stylesheet.formGroup.normal.width = width - 100;
-t.form.Form.stylesheet.formGroup.error.width = width - 100;
+var _ = require('lodash');
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
+stylesheet.formGroup.normal.width = width - 100;
+stylesheet.formGroup.error.width = width - 100;
 
 var Nil = t.Nil;
+
 function toNull(value) {
     return (t.Str.is(value) && value.trim() === '') || Nil.is(value) ? null : value;
 }
 
 var myNumberTransformer = {
     format: value => Nil.is(value) ? null : String(value),
-    parse: value =>{
-        if(value)
+    parse: value => {
+        if (value)
             value = value.replace(/,/g, '.');
         var n = parseFloat(value);
         var isNumeric = (value - n + 1) >= 0;
@@ -73,6 +59,7 @@ var myNumberTransformer = {
 t.form.Textbox.numberTransformer = myNumberTransformer;
 
 const options = {
+    stylesheet: stylesheet,
     auto: 'placeholders',
     fields: {
         volume: {
@@ -87,20 +74,6 @@ const options = {
 class AbaqueScreen extends React.Component {
 
 
-    constructor(props) {
-        super(props);
-        this.headerTable = {
-            "col1": 'Volume (m3 ou L)\t',
-            "col2": 'Hauteur (m)'
-        };
-        this.state = {
-            showModal: false,
-            points: [],
-            indexRow: null,
-        };
-
-    }
-
     static navigationOptions = {
         title: 'Abaque',
         headerStyle: {
@@ -109,16 +82,12 @@ class AbaqueScreen extends React.Component {
         headerTintColor: c.white,
 
     };
-
-
     showModal = () => {
         this.setState({showModal: true});
     }
-
     hideModal = () => {
         this.setState({showModal: false, indexRow: null});
     }
-
     addPoint = () => {
 
 
@@ -141,9 +110,7 @@ class AbaqueScreen extends React.Component {
         }
 
 
-
     }
-
     askDeletePoint = (index) => {
 
         Alert.alert(
@@ -158,17 +125,14 @@ class AbaqueScreen extends React.Component {
         )
 
     }
-
     modifierPoint = (index) => {
         this.setState({indexRow: index + 1});
         this.showModal();
     }
-
     deletePoint = (index) => {
         const action = {type: "DELETE_POINT", index: index}
         this.props.dispatch(action)
     }
-
     renderButton = () => {
         const addIconName = Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle';
         return (<View style={[s.actionButton]}>
@@ -182,6 +146,20 @@ class AbaqueScreen extends React.Component {
                 />
             </TouchableOpacity>
         </View>)
+    }
+
+    constructor(props) {
+        super(props);
+        this.headerTable = {
+            "col1": 'Volume (m3 ou L)\t',
+            "col2": 'Hauteur (m)'
+        };
+        this.state = {
+            showModal: false,
+            points: [],
+            indexRow: null,
+        };
+
     }
 
     render() {

@@ -1,19 +1,11 @@
 import React from 'react';
 import s from '../constants/Style'
 import c from '../constants/Colors'
-import {
-    Image,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    FlatList, Linking
-} from 'react-native';
+import {FlatList, Linking, ScrollView, View} from 'react-native';
 import text from "../constants/Text";
 import ListItem from '../components/ListItem'
 import {connect} from 'react-redux'
-import {Button, Input, Item, Text} from 'native-base';
+import {Button, Text} from 'native-base';
 import fn from "../functions/calcul";
 import Hyperlink from 'react-native-hyperlink'
 
@@ -40,7 +32,9 @@ class ResultScreen extends React.Component {
 
     getData(value) {
 
-        if(value.points.length === 0 || !value.points || !value.volume) {return []}
+        if (value.points.length === 0 || !value.points || !value.volume) {
+            return []
+        }
 
         const data = [];
         let hauteur = value.hauteur;
@@ -57,7 +51,7 @@ class ResultScreen extends React.Component {
         for (var i = 0; i < value.points.length; i++) {
             data.push({
                 courant: fn.format4dig(SigMin + value.points[i].hauteur * (SigMax - SigMin) / value.echelle, -9999),
-                affichage: fn.format4dig(value.points[i].volume,maxVolume)
+                affichage: fn.format4dig(value.points[i].volume, maxVolume)
             })
         }
 
@@ -98,14 +92,13 @@ class ResultScreen extends React.Component {
 
                 {!noData && !noParams &&
                 <Hyperlink
-                    onPress={ (url, text) => Linking.openURL(url) }
-                    linkStyle={[s.text, {color : c.blueLink}]}
-                    linkText={ url => url === 'http://www.hitec.fr/ALP842-Afficheur-4-20-mA' ? 'HITEC ALP842' : url }
+                    onPress={(url, text) => Linking.openURL(url)}
+                    linkStyle={[s.text, {color: c.blueLink}]}
+                    linkText={url => url === 'http://www.hitec.fr/ALP842-Afficheur-4-20-mA' ? 'HITEC ALP842' : url}
                 >
                     <Text style={[s.text, s.m_md]}>{text.resultText}</Text>
                 </Hyperlink>
                 }
-
 
 
                 {!noData && !noParams &&

@@ -1,5 +1,3 @@
-
-
 export default {
 
     getAbaqueCylinder: (value) => {
@@ -27,14 +25,14 @@ export default {
         let zstr;
         let coma;
 
-            if      (volumeMax >= 1000) coma = 0;
-            else if (volumeMax >= 100)  coma = 1;
-            else if (volumeMax >= 10)   coma = 2;
-            else                  coma = 3;
+        if (volumeMax >= 1000) coma = 0;
+        else if (volumeMax >= 100) coma = 1;
+        else if (volumeMax >= 10) coma = 2;
+        else coma = 3;
 
-            if (volumeMax === -9999) {
-                coma = 2;
-            }
+        if (volumeMax === -9999) {
+            coma = 2;
+        }
 
 
         if (coma === 0) {
@@ -55,19 +53,8 @@ export default {
 
         console.log(coma, 'coma')
 
-        return zstr + (num*1).toFixed(coma);
-    },
-
-    clearNumber: (num) => {
-        var chaine = num.replace(',','.');
-        chaine = chaine.replace(' ','');
-        return parseFloat(chaine);
+        return zstr + (num * 1).toFixed(coma);
     }
-
-
-
-
-
 
 
 }

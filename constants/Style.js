@@ -40,8 +40,8 @@ export default {
     actionButton: {
         position: 'absolute',
         bottom: 25,
-        right:25,
-        zIndex:1000,
+        right: 25,
+        zIndex: 1000,
     },
     welcomeContainer: {
         alignItems: 'center',
@@ -50,12 +50,12 @@ export default {
     },
 
     image: {
-   flex:1,
+        flex: 1,
         resizeMode: 'contain',
     },
     modalContainer: {
         justifyContent: 'center',
-       // marginHorizontal: 30,
+        // marginHorizontal: 30,
     },
 
     modalView: {
@@ -83,7 +83,7 @@ export default {
         fontSize: 17,
         color: c.greyText,
         lineHeight: 24,
-        textAlign:  'center',
+        textAlign: 'center',
         marginTop: 15,
     },
     boldText: {

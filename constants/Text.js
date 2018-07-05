@@ -3,8 +3,8 @@ const tintColor = '#2f95dc';
 export default {
     homeL1: 'Cette application vous facilite la mise en oeuvre de la linéarisation du volume des cuves.',
     homeL2: '1. Saisissez vos données dans l\'onglet paramètres',
-    homeL3: 'Si votre cuve est cylindrique tout est calculé automatiquement. Sinon, vous devez vous remplir l\'abaque à partir de votre documentation. ',
-    homeL4: '2. Visualisez les valeurs dans l\'onglet résultat.',
+    homeL3: '2. Si votre cuve est cylindrique tout est calculé automatiquement. Sinon, vous devez remplir l\'abaque à partir de votre documentation. ',
+    homeL4: '3. Visualisez les valeurs dans l\'onglet résultat.',
 
 
     paramInput1: 'Pleine échelle du capteur (m)',

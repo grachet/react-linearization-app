@@ -2,22 +2,12 @@ import React from 'react';
 import s from '../constants/Style'
 import c from '../constants/Colors'
 import text from '../constants/Text'
-import {
-    Image,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    WebView,
-    Linking,
-    TouchableHighlight, Dimensions
-} from 'react-native';
+import {Dimensions, Image, Linking, Platform, ScrollView, TouchableHighlight, View} from 'react-native';
+import {Button, Text} from 'native-base';
+
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-
-import {Button, Text} from 'native-base';
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -41,7 +31,7 @@ export default class HomeScreen extends React.Component {
 
             <View style={[s.container]}>
 
-                <View style={[s.center, {flex: 0.30, backgroundColor: c.white}]}>
+                <View style={[s.center, {flex: 0.30, marginBottom: 10, backgroundColor: c.white}]}>
                     <TouchableHighlight
                         onPress={() => Linking.openURL('http://www.hitec.fr/')}
                     >
@@ -54,8 +44,8 @@ export default class HomeScreen extends React.Component {
                     </TouchableHighlight>
                 </View>
 
-                <ScrollView style={s.container}>
-                    <View style={[s.center, {flex: 0.75, paddingHorizontal: 15, paddingTop : 8}]}>
+                <ScrollView contentContainerStyle={{flexGrow: 1}} style={[s.container]}>
+                    <View style={[s.center, s.container, {justifyContent: 'center', paddingHorizontal: 15}]}>
                         <Text style={s.stext}>{text.homeL1}</Text>
                         <Text style={[s.stext]}>{text.homeL2}</Text>
                         <Text style={[s.stext]}>{text.homeL3}</Text>
@@ -63,10 +53,9 @@ export default class HomeScreen extends React.Component {
                     </View>
                 </ScrollView>
 
-                <View style={[s.center, {flex: 0.20, justifyContent: 'center'}]}>
+                <View style={[s.center, {justifyContent: 'center', marginVertical: 12}]}>
                     <View style={[s.center]}>
                         <Button info
-                                small={height < 600}
                                 onPress={() => navigate('Params')
                                 }><Text> Commencer </Text>
                         </Button>
