@@ -44,9 +44,9 @@ stylesheet.controlLabel.error.fontSize = 16;
 stylesheet.errorBlock.fontSize = 14;
 stylesheet.errorBlock.marginBottom = 8;
 stylesheet.fieldset.width = width;
-stylesheet.fieldset.paddingHorizontal = 13;
-stylesheet.textbox.normal.width = width - 26;
-stylesheet.textbox.error.width = width - 26;
+stylesheet.fieldset.paddingHorizontal = 30;
+stylesheet.textbox.normal.width = width - 60;
+stylesheet.textbox.error.width = width - 60;
 
 var echelleType = t.refinement(t.Number, function (n) {
     return n >= 0 && n <= 9999;
