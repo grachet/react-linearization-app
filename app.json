@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "hitec",
-    "description": "A very interesting project.",
-    "slug": "hitec",
+    "name": "Linéarisation de cuves",
+    "description": "Application de linéarisation du volume d'une cuve",
+    "slug": "linearisation-cuve",
     "privacy": "public",
     "sdkVersion": "28.0.0",
     "platforms": ["ios", "android"],
