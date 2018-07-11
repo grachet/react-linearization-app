@@ -1,4 +1,4 @@
-const tintColor = '#2f95dc';
+import link from './Link'
 
 export default {
     homeL1: 'Cette application vous facilite la mise en oeuvre de la linéarisation du volume des cuves.',
@@ -14,14 +14,11 @@ export default {
 
     abaqueHelp1: 'Vous devez ajouter les points de votre abaque avec le bouton (+) car votre cuve n\'est pas cylindrique. ',
 
-
-    resultText: 'Les valeurs ci-dessous sont celles à entrer dans un afficheur http://www.hitec.fr/ALP842-Afficheur-4-20-mA.',
+    //link.linkALP842 sert à afficher le text 'HITEC ALP842' vers le lien du fichier Link.js (important)
+    resultText: 'Les valeurs ci-dessous sont celles à entrer dans un afficheur ' + link.linkALP842 + '.',
     abaqueModalText: 'Ajouter un point',
     abaqueModalInput1: 'Volume (m3 ou L)',
     abaqueModalInput2: 'Hauteur (m)',
-
-    shortNoVolume: 'Volume nul !',
-    shortNoHauteur: 'Hauteur nulle !',
 
     tooBigEchelle: 'L\'échelle est  trop grande !',
     tooBigHauteur: 'La hauteur est trop grande !',

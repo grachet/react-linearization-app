@@ -1,6 +1,7 @@
 import React from 'react';
 import s from '../constants/Style'
 import c from '../constants/Colors'
+import l from '../constants/Link'
 import text from '../constants/Text'
 import {Dimensions, Image, Linking, Platform, ScrollView, TouchableHighlight, View} from 'react-native';
 import {Button, Text} from 'native-base';
@@ -33,7 +34,7 @@ export default class HomeScreen extends React.Component {
 
                 <View style={[s.center, {flex: 0.30, marginBottom: 10, backgroundColor: c.white}]}>
                     <TouchableHighlight
-                        onPress={() => Linking.openURL('http://www.hitec.fr/')}
+                        onPress={() => Linking.openURL(l.linkLogoHitec)}
                     >
                         <Image
                             source={

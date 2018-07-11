@@ -5,10 +5,10 @@ function setAppState(state = initialState, action) {
     switch (action.type) {
 
         case 'DELETE_POINT':
-                nextState = {
-                    ...state,
-                    points: state.points.filter((item, index) => index !== action.index)
-                };
+            nextState = {
+                ...state,
+                points: state.points.filter((item, index) => index !== action.index)
+            };
             return nextState || state;
 
         case 'ADD_POINT':
@@ -20,7 +20,7 @@ function setAppState(state = initialState, action) {
 
         case 'MOD_POINT':
             let data = JSON.parse(JSON.stringify(state.points));
-            data[action.index -1] = action.value;
+            data[action.index - 1] = action.value;
             console.log(state)
             nextState = {
                 ...state,

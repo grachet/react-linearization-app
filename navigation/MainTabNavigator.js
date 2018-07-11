@@ -1,13 +1,12 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ParamsScreen from '../screens/ParamsScreen';
 import AbaqueScreen from '../screens/AbaqueScreen';
 import ResultScreen from '../screens/ResultScreen';
-
 
 
 const HomeStack = createStackNavigator({
@@ -29,7 +28,6 @@ HomeStack.navigationOptions = {
 };
 
 
-
 const ParamsStack = createStackNavigator({
     Params: ParamsScreen,
 });
@@ -43,7 +41,6 @@ ParamsStack.navigationOptions = {
         />
     ),
 };
-
 
 
 const AbaqueStack = createStackNavigator({
@@ -74,8 +71,6 @@ ResultScreenStack.navigationOptions = {
         />
     ),
 };
-
-
 
 
 export default createBottomTabNavigator({

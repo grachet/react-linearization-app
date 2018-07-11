@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Linéarisation de cuves",
-    "description": "Application de linéarisation du volume d'une cuve",
-    "slug": "linearisation-cuve",
+    "name": "HITEC Barémage Linéarisation",
+    "description": "Abaque : signal 4-20 mA  / hauteurs / volume pour cuves cylindriques ou autres",
+    "slug": "HITEC-Baremage-Linearisation",
     "privacy": "public",
     "sdkVersion": "28.0.0",
     "platforms": ["ios", "android"],
@@ -22,6 +22,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "fr.hitec.linearisation"
     }
   }
 }

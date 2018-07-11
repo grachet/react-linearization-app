@@ -1,6 +1,7 @@
 import React from 'react';
 import s from '../constants/Style'
 import c from '../constants/Colors'
+import l from '../constants/Link'
 import {FlatList, Linking, ScrollView, View} from 'react-native';
 import text from "../constants/Text";
 import ListItem from '../components/ListItem'
@@ -94,7 +95,7 @@ class ResultScreen extends React.Component {
                 <Hyperlink
                     onPress={(url, text) => Linking.openURL(url)}
                     linkStyle={[s.text, {color: c.blueLink}]}
-                    linkText={url => url === 'http://www.hitec.fr/ALP842-Afficheur-4-20-mA' ? 'HITEC ALP842' : url}
+                    linkText={url => url === l.linkALP842 ? 'HITEC ALP842' : url}
                 >
                     <Text style={[s.text, s.m_md]}>{text.resultText}</Text>
                 </Hyperlink>
