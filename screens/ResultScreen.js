@@ -40,7 +40,6 @@ class ResultScreen extends React.Component {
         const data = [];
         let hauteur = value.hauteur;
         let volume = value.volume;
-        console.log(value)
 
         const maxVolume = Math.max.apply(Math, value.points.map(function (o) {
             return o.volume;
@@ -56,7 +55,6 @@ class ResultScreen extends React.Component {
             })
         }
 
-        console.log(data);
         return data;
 
     }

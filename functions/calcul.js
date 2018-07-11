@@ -51,8 +51,6 @@ export default {
         else
             zstr = "";
 
-        console.log(coma, 'coma')
-
         return zstr + (num * 1).toFixed(coma);
     }
 
