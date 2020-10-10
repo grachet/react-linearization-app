@@ -8,9 +8,8 @@
 
 * [expo](https://expo.io/tools#xde) - [XDE (graphic interface)](https://github.com/expo/xde/releases)
 * [node.Js](https://nodejs.org/en/)
-* [yarn](https://yarnpkg.com/en/docs/install#windows-stable)
 
-not mandatory (emulator)
+Not mandatory (emulator)
 
 * [genymotion](https://www.genymotion.com/desktop/)
 * [android studio](https://developer.android.com/studio/)
@@ -19,17 +18,17 @@ not mandatory (emulator)
 
 ## Getting started
 
-* `git clone https://github.com/grachet/react-linearization-app.git` or `git pull` (if you already have it)
-* `yarn`
+* `git clone https://github.com/grachet/react-linearization-app.git`
+* `npm i`
 * `run expo XDE (or command line : $ exp start)`
 * `choose share and scan QR code with a real device` 
 * for simulator use genymotion or android studio
-or xcode but not always easy to configure
+or xcode (not always easy to configure)
 
 ## Build executable for stores
 
-* just go in folder and write `exp build:android` or `exp build:ios` in console
-* copy url displayed displayed in console to a browser to download the file
+* `exp build:android` or `exp build:ios` in folder root
+* download app from the link displayed in console 
 * add it in [google play console](https://play.google.com/apps/publish/)
 
 ## React Native Module
@@ -40,7 +39,6 @@ or xcode but not always easy to configure
 * [react-native-hyperlink](https://github.com/obipawan/react-native-hyperlink)
 and more
 
-
-Dev : Guillaume Rachet for Hitec
+Dev : Guillaume Rachet for Hitec Company
 
 
