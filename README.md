@@ -1,10 +1,10 @@
 # Hitec - Linearization of tank volumes
 
-* Freelance app for Hitec Company
+It's a react native app, done as freelance for Hitec Company. Useful to make linearization of tank volumes.
+
 * React Native App 
 * Both Ios and Android 
 * Build with expo
-* Linearization of tank volumes
 
 ## Dependenties
 
