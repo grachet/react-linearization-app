@@ -1,21 +1,23 @@
 # Hitec - Linearization of tank volumes
 
+[Available on Playstore](https://play.google.com/store/apps/details?id=fr.hitec.linearisation).
+
+A react native application, done as a freelance for the company [Hitec](https://hitec.fr/).
+
+Calculates the position of pressure sensors based on user measurements.
+
 <table> 
   <tr>
-    <td><img src="./images/hitec1.jpg" width=270 height=600></td>
-    <td><img src="./images/hitec2.jpg" width=270 height=600></td>
-    <td><img src="./images/hitec3.jpg" width=270 height=600></td>
+    <td><img src="./images/hitec1.jpg" width=270 height=482></td>
+    <td><img src="./images/hitec2.jpg" width=270 height=482></td>
+    <td><img src="./images/hitec3.jpg" width=270 height=482></td>
   </tr>
   
   <tr>
-    <td><img src="./images/hitec4.jpg" width=270 height=600></td>
-    <td><img src="./images/hitec5.jpg" width=270 height=600></td> 
+    <td><img src="./images/hitec4.jpg" width=270 height=482></td>
+    <td><img src="./images/hitec5.jpg" width=270 height=482></td> 
   </tr>
- </table> 
-
-A react native application, done as a freelance for the company Hitec.
-
-Calculates the position of pressure sensors based on user measurements.
+ </table>  
 
 * React Native App 
 * Both Ios and Android 
